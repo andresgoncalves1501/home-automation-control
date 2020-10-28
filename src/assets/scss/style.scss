@@ -1,0 +1,277 @@
+// // variables
+$breakpoints: (
+  phone: 640px,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop: 1440px,
+  desktop-lg: 1800px,
+) !default;
+
+// mixins
+@mixin responsive($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
+// app
+.app {
+  background-color: #f8f8f8;
+  column-gap: 15px;
+  display: grid;
+  font-family: sans-serif;
+  height: calc(100vh - 30px);
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas:
+    "wc living-room room"
+    "kitchen kitchen stairs";
+  padding: 15px;
+  row-gap: 100px;
+  width: calc(100vw - 30px);
+
+  @include responsive(max-width, map-get($breakpoints, desktop)) {
+    row-gap: 60px;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+
+    @include responsive(max-width, map-get($breakpoints, laptop)) {
+      font-size: 24px;
+    }
+  }
+
+  h4 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  // container
+  .container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    // alarm, light, stove
+    .alarm,
+    .light,
+    .stove {
+      margin-right: 20px;
+
+      @include responsive(max-width, map-get($breakpoints, laptop)) {
+        margin-right: 10px;
+      }
+
+      img {
+        cursor: pointer;
+        max-height: 180px;
+        width: auto;
+
+        @include responsive(max-width, map-get($breakpoints, desktop-lg)) {
+          max-height: 120px;
+        }
+
+        @include responsive(max-width, map-get($breakpoints, laptop)) {
+          max-height: 60px;
+        }
+      }
+    } // end alarm, light, stove
+
+    // thermometer
+    .thermometer {
+      margin-right: 20px;
+
+      img {
+        cursor: pointer;
+        max-height: 160px;
+        margin: auto;
+        width: auto;
+
+        @include responsive(max-width, map-get($breakpoints, desktop-lg)) {
+          max-height: 100px;
+        }
+      }
+
+      // temperature
+      .temperature {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        font-weight: 700;
+        justify-content: space-around;
+        margin-top: 15px;
+
+        span {
+          cursor: pointer;
+          font-size: 24px;
+        }
+      } // end temperature
+    } // end thermometer
+
+    // stove
+    .stove {
+      column-gap: 5px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas:
+        "sp_1 sp_2"
+        "sp_3 sp_4";
+      margin-top: 20px;
+      row-gap: 5px;
+
+      @include responsive(max-width, map-get($breakpoints, laptop)) {
+        margin-top: 15px;
+      }
+
+      // stovepipe
+      .stovepipe {
+        img {
+          cursor: pointer;
+          max-height: 120px;
+          margin: auto;
+          width: auto;
+
+          @include responsive(max-width, map-get($breakpoints, desktop-lg)) {
+            max-height: 80px;
+          }
+
+          @include responsive(max-width, map-get($breakpoints, laptop)) {
+            max-height: 60px;
+          }
+        }
+
+        &.__1 {
+          grid-area: sp_1;
+        }
+
+        &.__2 {
+          grid-area: sp_2;
+        }
+
+        &.__3 {
+          grid-area: sp_3;
+        }
+
+        &.__4 {
+          grid-area: sp_4;
+        }
+      } // end stovepipe
+    } // end stove
+
+    div:last-of-type {
+      margin-right: 0px;
+    }
+  } // end container
+
+  // walls
+  .wall {
+    background-color: #474747;
+    position: absolute;
+
+    &.__bottom {
+      bottom: 0px;
+      height: 1px;
+      left: 0px;
+      width: 100%;
+    }
+
+    &.__bottom_left {
+      bottom: 0px;
+      height: 1px;
+      left: 0px;
+      width: 35%;
+    }
+
+    &.__bottom_right {
+      bottom: 0px;
+      height: 1px;
+      right: 0px;
+      width: 35%;
+    }
+
+    &.__left {
+      height: 100%;
+      left: 0px;
+      top: 0px;
+      width: 1px;
+    }
+
+    &.__right {
+      height: 100%;
+      right: 0px;
+      top: 0px;
+      width: 1px;
+    }
+
+    &.__top {
+      height: 1px;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+    }
+
+    &.__top_left {
+      height: 1px;
+      left: 0px;
+      top: 0px;
+      width: 35%;
+    }
+
+    &.__top_right {
+      height: 1px;
+      right: 0px;
+      top: 0px;
+      width: 35%;
+    }
+  } // end walls
+
+  // kitchen
+  .kitchen {
+    grid-area: kitchen;
+    padding: 15px;
+    position: relative;
+
+    .__top_left {
+      width: 60%;
+    }
+
+    .__top_right {
+      width: 20%;
+    }
+  } // end kitchen
+
+  // stairs
+  .stairs {
+    grid-area: stairs;
+    padding: 15px;
+    position: relative;
+  } // end stairs
+
+  // room
+  .room {
+    grid-area: room;
+    padding: 15px;
+    position: relative;
+  } // end room
+
+  // living room
+  .living-room {
+    grid-area: living-room;
+    padding: 15px;
+    position: relative;
+  } // end living room
+
+  // wc
+  .wc {
+    grid-area: wc;
+    padding: 15px;
+    position: relative;
+  } // end wc
+} // end app
