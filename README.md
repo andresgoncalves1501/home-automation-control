@@ -1,4 +1,4 @@
-# aula01ex01
+# home-automation-control
 
 ## Project setup
 ```
